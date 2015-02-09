@@ -1,0 +1,11 @@
+something for game
+something for teams
+
+class for "piece"
+subclass for chess pieces
+	properties:
+		position
+		team
+
+	methods
+		check where can move
