@@ -11,3 +11,6 @@ class Pawn:
 			self.y = 6
 		else:
 			self.y = 1
+			
+	def boardLocation(self):
+		return (self.x + 8*self.y)
