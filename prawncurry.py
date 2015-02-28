@@ -4,6 +4,9 @@ class Pawn:
 	x = 0
 	y = 1
 
+	#kinged 
+	kinged = 0
+
 	def initialize(self, team, x):
 		self.team = team
 		self.x = x
@@ -13,55 +16,54 @@ class Pawn:
 			self.y = 1
 			
 	
-	# returns a list of all possible MOVES and CAPTURES
-	# e.g. [ [ [2,0],[ 0,2] ] , [ [4,0],[ 0,4] ] ]
-	#     move coords ^                 ^ capture coords
+	# returns a list of all MOVES given the location, team, and whether it's kinged
+	# e.g. [[2,0],[0,2]]
 	def possibleMoves(self):
 		moveList = []
-		captureList = []
 		
 		# four possible movement directions
-		movex = 0
-		movey = 0
-		for move in range(0,4):
-			if move == 0:	#UP LEFT
-				movex = -1
-				movey = -1
-			elif move == 1:	#UP RIGHT
-				movex = 1
-				movey = -1
-			elif move == 2:	#DOWN LEFT
-				movex = -1
-				movey = 1
-			elif move == 3:	#DOWN RIGHT
-				movex = 1
-				movey = 1
-			
-			#capture moves are the same only bigger
-			capturex = movex * 2
-			capturey = movey * 2
-			
-			#set the movement/capture to absolute board coordinates			
-			movex = x + movex
-			movey = y + movey
-			
-			capturex = x + capturex
-			capturey = y + capturey
+		for direction in range(0,4):
+			movex = 0
+			movey = 0
+
+			#the top team can only move down (unless kinged) and vice-versa
+			valid_direction = True
+			if not kinged:
+				if team == 0:
+					if direction == 0 or direction == 1:#TOP team can't move UPLEFT or UPRIGHT
+						valid_direction = False
+				elif team == 1:
+					if direction == 2 or direction == 3:#BOTTOM team can't move DOWNLEFT or DOWNRIGHT
+						valid_direction = False
+
+			#if this is a valid direction for this pawn, add the movement coordinate to the list
+			if valid_direction:
+				if direction == 0:	#UP LEFT
+					movex = -1
+					movey = -1
+				elif direction == 1:	#UP RIGHT
+					movex = 1
+					movey = -1
+				elif direction == 2:	#DOWN LEFT
+					movex = -1
+					movey = 1
+				elif direction == 3:	#DOWN RIGHT
+					movex = 1
+					movey = 1
 				
-			#check to see if this move is on the board and add it to the move list if so
-			if movex >= 0 and movex < 8:
-				if movey >= 0 and movey < 8:
-					moveList.append([movex,movey])
+				#convert to absolute board coordinates			
+				movex = x + movex
+				movey = y + movey
+					
+				#check to see if this move is on the board and add it to the move list if so
+				if movex >= 0 and movex < 8:
+					if movey >= 0 and movey < 8:
+						moveList.append([movex,movey])
 		
-			#check to see if this capture is on the board and et cetera
-			if capturex >= 0 and capturex < 8:
-				if capturey >= 0 and capturey < 8:
-					captureList.append([capturex,capturey])
-		
+		# returns the list of possible move coordinates
+		return movelist
 
-		# returns both the MOVE and CAPTURE coordinate possibilities
-		return [movelist, captureList]
-
+	def possibleCaptures(self):
 		
 			
 	def boardLocation(self):
