@@ -37,13 +37,15 @@ for team in range(0,2):
 currentPawn = pieceList[0];
 
 #initializes the board array		
-for x in range(0,64):
-	board.append[2]	
+for x in range(0,8):
+	for y in range(0,8):
+		board.append[(x,y)]	
 
 #makes an empty board
 def emptyBoard():
-	for x in range(0,64):
-		board[x] = 2
+	for x in range(0,8):
+		for y in range(0,8):
+			board[(x,y)] = 2
 
 #adds pieces to the (presumably empty) board
 def addPieces():
@@ -71,7 +73,7 @@ def drawBoard():
 	print("")
 	for y in range(0,8):
 		for x in range(0,8):
-			if board[x] != 2
+			if board[(x,y)] != 2
 				print("[" + str(board[x].team) + "]");		
 			else:
 				print("[ ]"),
@@ -86,24 +88,31 @@ while isCurryReady == 'no':
 	print("Player " + str(turn) + "'s turn.")
 	while x = 0:
 		print("Which piece do you want to move?")
-		print("(Use numbers 0-63 to select a square.)")
-		if board[userInputHowDoYouSayThis].team == turn:
-			currentPawn = board[userInputHowDoYouSayThis]
+		print("(Use x,y coordinates to select a square.)")
+		userX = input("x: ")
+		userY = input("y: ")
+		if board[(userX, userY)].team == turn:
+			currentPawn = board[(userX, userY)]
 			break
 		else:
-			print("That's not your pawn.")
+			print("You don't have a pawn on that square.")
+	moveLocations = currentPawn.possibleMoves();
+	#captureLocations = currentPawn.possibleCaptures();
 	while x = 0:
 		print("Where do you want to move?")
-		print("(Use numbers 0-63 to select a square.)")
-		if #make it do things
-			moveTo = userInputHowDoYouSayThis
+		print("(Use x,y coordinates to select a square.)")
+		userX = input("x: ")
+		userY = input("y: ")
+		#need to add for loop to check possibleMoves
+			if board[(userX, userY)] = possibleMoves(x): #make it do things
+			moveTo = (userX, userY)
 			break
 		else:
 			print("That's not a legal move.")
 	#if it's a capture, get rid of the captured piece
 	#then move the pawn:
-	pawn.x = something
-	pawn.y = something_else
+	pawn.x = userX
+	pawn.y = userY
 	#redraw the board and see if anyone's won
 	emptyBoard()
 	addPieces()
