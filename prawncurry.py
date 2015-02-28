@@ -22,6 +22,10 @@ class Pawn:
 		moveList = []
 		
 		# four possible movement directions
+		# 0 = UP LEFT
+		# 1 = UP RIGHT
+		# 2 = DOWN LEFT
+		# 3 = DOWN RIGHT
 		for direction in range(0,4):
 			movex = 0
 			movey = 0
@@ -38,7 +42,7 @@ class Pawn:
 
 			#if this is a valid direction for this pawn, add the movement coordinate to the list
 			if valid_direction:
-				if direction == 0:	#UP LEFT
+				if direction == 0:		#UP LEFT
 					movex = -1
 					movey = -1
 				elif direction == 1:	#UP RIGHT
