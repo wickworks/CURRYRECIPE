@@ -28,37 +28,35 @@ isCurryReady = 'no'
 turn = 1
 moveTo = 0
 
-for team in range(0,2):
-	#team 0 starts on row 0, team 1 starts on row 6
-	starting_row = team * 6
+def makeStartingPawns():
+	for team in range(0,2):
+		#team 0 starts on row 0, team 1 starts on row 6
+		starting_row = team * 6
 
-	for column in range(0,8):
-		#alternate between the top and bottom row
-		row = starting_row + (column % 2)
+		for column in range(0,8):
+			#alternate between the top and bottom row
+			row = starting_row + (column % 2)
 
-		#make the pawn
-		pawn = prawncurry.Pawn()
-		pawn.initialize(team, column, row)
-		pieceList.append(pawn)
+			#make the pawn
+			pawn = prawncurry.Pawn()
+			pawn.initialize(team, column, row)
+			pieceList.append(pawn)
 
-currentPawn = pieceList[0];
-
-#initializes the board array		
-for x in range(0,8):
-	for y in range(0,8):
-		board.append[(x,y)]	
-
-#makes an empty board
+#sets the board to its empty "2" state
 def emptyBoard():
+	#clears out the entire board
+	board = []
+	#makes 64 "2"s
 	for x in range(0,8):
 		for y in range(0,8):
-			board[(x,y)] = 2
+			board.append[2]	
 
 #adds pieces to the (presumably empty) board
 def addPieces():
 	for pawn in pieceList:
-		board[pawn.boardLocation] = pawn
+		board[pawn.boardLocation()] = pawn
 
+#checks to see if the curry is ready and we don't have to play checkers anymore
 def checkCurry():
 	team0 = 0
 	team1 = 0
@@ -76,6 +74,7 @@ def checkCurry():
 	else
 		return 'no'
 
+#draws the current board in all its ASCII glory
 def drawBoard():
 	print("")
 	for y in range(0,8):
@@ -87,8 +86,17 @@ def drawBoard():
 		
 		print("")
 
+#returns whatever is on the board at a given x,y
+def boardAt(x,y):
+	return board[(x + 8*y)]
 
-drawBoard()
+#initializes the board for the first time
+emptyBoard()
+
+#make all the pawns
+makeStartingPawns()
+currentPawn = pieceList[0];
+
 #"""
 while isCurryReady == 'no':
 	turn = (turn + 1) % 2
@@ -98,8 +106,8 @@ while isCurryReady == 'no':
 		print("(Use x,y coordinates to select a square.)")
 		userX = input("x: ")
 		userY = input("y: ")
-		if board[(userX, userY)].team == turn:
-			currentPawn = board[(userX, userY)]
+		if boardAt(userX, userY).team == turn:
+			currentPawn = boardAt(userX, userY)
 			break
 		else:
 			print("You don't have a pawn on that square.")
@@ -111,7 +119,7 @@ while isCurryReady == 'no':
 		userX = input("x: ")
 		userY = input("y: ")
 		#need to add for loop to check possibleMoves
-			if board[(userX, userY)] = possibleMoves(x): #make it do things
+			if boardAt(userX, userY) = possibleMoves(x): #make it do things
 			moveTo = (userX, userY)
 			break
 		else:
