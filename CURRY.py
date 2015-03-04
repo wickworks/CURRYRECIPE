@@ -75,10 +75,6 @@ def checkCurry():
 		return 'yes'
 	else
 		return 'no'
-=======
-	
-		
->>>>>>> bestbranch
 
 def drawBoard():
 	print("")
