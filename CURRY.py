@@ -29,9 +29,16 @@ turn = 1
 moveTo = 0
 
 for team in range(0,2):
-	for pawns in range(0,8):
+	#team 0 starts on row 0, team 1 starts on row 6
+	starting_row = team * 6
+
+	for column in range(0,8):
+		#alternate between the top and bottom row
+		row = starting_row + (column % 2)
+
+		#make the pawn
 		pawn = prawncurry.Pawn()
-		pawn.initialize(team, pawns)
+		pawn.initialize(team, column, row)
 		pieceList.append(pawn)
 
 currentPawn = pieceList[0];
@@ -68,6 +75,10 @@ def checkCurry():
 		return 'yes'
 	else
 		return 'no'
+=======
+	
+		
+>>>>>>> bestbranch
 
 def drawBoard():
 	print("")

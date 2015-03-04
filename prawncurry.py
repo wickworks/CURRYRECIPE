@@ -7,13 +7,10 @@ class Pawn:
 	#kinged 
 	kinged = 0
 
-	def initialize(self, team, x):
+	def initialize(self, team, x, y):
 		self.team = team
 		self.x = x
-		if team == 1:
-			self.y = 6
-		else:
-			self.y = 1
+		self.y = y
 			
 	
 	# returns a list of all MOVES given the location, team, and whether it's kinged
